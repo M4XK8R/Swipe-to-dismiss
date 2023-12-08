@@ -50,6 +50,7 @@ android {
 }
 
 dependencies {
+    implementation("org.burnoutcrew.composereorderable:reorderable:0.9.6")
 
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
