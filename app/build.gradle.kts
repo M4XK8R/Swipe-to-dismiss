@@ -1,6 +1,10 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+
+    id("com.google.dagger.hilt.android")
+    id("com.google.devtools.ksp")
+//    kotlin("kapt")
 }
 
 android {
@@ -50,6 +54,20 @@ android {
 }
 
 dependencies {
+
+    //room
+    val room_version = "2.6.1"
+    implementation("androidx.room:room-runtime:$room_version")
+    ksp("androidx.room:room-compiler:$room_version")
+    implementation("androidx.room:room-ktx:$room_version")
+
+    // Di
+    implementation("com.google.dagger:hilt-android:2.48")
+    ksp("com.google.dagger:hilt-android-compiler:2.48")
+    // For viewmodel
+    implementation("androidx.hilt:hilt-navigation-fragment:1.1.0")
+
+    // Drag nd droop
     implementation("org.burnoutcrew.composereorderable:reorderable:0.9.6")
 
     implementation("androidx.core:core-ktx:1.12.0")
