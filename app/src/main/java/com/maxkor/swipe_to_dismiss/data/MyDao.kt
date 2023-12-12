@@ -11,11 +11,20 @@ import kotlinx.coroutines.flow.Flow
 interface MyDao {
 
     @Query("SELECT * FROM my_table")
-    fun getAllItems(): Flow<List<MyEntity>>
+    fun getAllItems(): Flow<List<MyDbEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertItem (myEntity: MyEntity)
+    suspend fun insertItem(myDbEntity: MyDbEntity)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertAll(items: List<MyDbEntity>)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertVarArg(vararg items: MyDbEntity)
 
     @Delete
-    fun deleteItem (myEntity: MyEntity)
+    suspend fun deleteItem(myDbEntity: MyDbEntity)
+
+    @Query("DELETE FROM my_table")
+    suspend fun deleteAll()
 }

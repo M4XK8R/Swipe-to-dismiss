@@ -28,14 +28,11 @@ import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.TextUnitType
 import androidx.compose.ui.unit.dp
 import com.maxkor.swipe_to_dismiss.R
-import kotlin.random.Random
 
 @Composable
 fun ItemCard(
-    modifier: Modifier = Modifier,
-    id: Int = 0,
-    text: String = "Lorem ipsum... $id",
-    isChecked: Boolean = Random.nextBoolean(),
+    itemModel: ItemModel,
+    modifier: Modifier = Modifier
 ) {
 
     Card(
@@ -69,7 +66,7 @@ fun ItemCard(
             Spacer(modifier = Modifier.size(16.dp))
 
             Text(
-                text = text,
+                text = "${itemModel.text} ${itemModel.id}",
                 fontSize = TextUnit(20f, TextUnitType.Sp),
                 color = MaterialTheme.colorScheme.onSurface,
                 style = MaterialTheme.typography.bodyLarge,
@@ -79,7 +76,7 @@ fun ItemCard(
 
             Box(modifier = Modifier.fillMaxWidth()) {
                 var checkedState by remember {
-                    mutableStateOf(isChecked)
+                    mutableStateOf(itemModel.isChecked)
                 }
                 Checkbox(
                     checked = checkedState,
@@ -94,8 +91,8 @@ fun ItemCard(
     }
 }
 
-@Preview(showSystemUi = true)
-@Composable
-fun ItemPreview() {
-    ItemCard()
-}
+//@Preview(showSystemUi = true)
+//@Composable
+//fun ItemPreview() {
+//    ItemCard(ItemModel())
+//}

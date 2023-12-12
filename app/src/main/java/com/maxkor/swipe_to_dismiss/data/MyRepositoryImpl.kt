@@ -3,31 +3,34 @@ package com.maxkor.swipe_to_dismiss.data
 import com.maxkor.swipe_to_dismiss.domain.MyRepository
 import com.maxkor.swipe_to_dismiss.presentation.ItemModel
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.map
 
 class MyRepositoryImpl(
     private val dataBase: MyRoomDataBase,
-    private val myMapper: MyMapper
+    private val mapper: MyMapper
 ) : MyRepository {
 
-    override fun getAllItems(): Flow<List<ItemModel>> {
-        val list = mutableListOf<ItemModel>()
-        val entityFlow = dataBase.dao.getAllItems()
-        entityFlow.onEach {
-            val itemModelList = myMapper.mapEntityListToModelList(it)
-            list.addAll(itemModelList)
-        }
-        return flow {
-            list.toList()
-        }
+    override fun getAllItems(): Flow<List<ItemModel>> = dataBase.dao.getAllItems().map {
+        mapper.mapEntityListToModelList(it)
     }
 
     override suspend fun insertItem(itemModel: ItemModel) {
-        dataBase.dao.insertItem(myMapper.mapModelToEntity(itemModel))
+        dataBase.dao.insertItem(mapper.mapModelToEntity(itemModel))
+    }
+
+    override suspend fun insertAllItems(items: List<ItemModel>) {
+        dataBase.dao.insertAll(mapper.mapModelListToDbEntityList(items))
+    }
+
+    override suspend fun insertVarArg(vararg items: MyDbEntity) {
+        dataBase.dao.insertVarArg()
     }
 
     override suspend fun deleteItem(itemModel: ItemModel) {
-        dataBase.dao.deleteItem(myMapper.mapModelToEntity(itemModel))
+        dataBase.dao.deleteItem(mapper.mapModelToEntity(itemModel))
+    }
+
+    override suspend fun deleteAll() {
+       dataBase.dao.deleteAll()
     }
 }

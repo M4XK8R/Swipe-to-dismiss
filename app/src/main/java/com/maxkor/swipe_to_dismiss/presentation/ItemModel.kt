@@ -6,10 +6,10 @@ import android.media.Image
 import com.maxkor.swipe_to_dismiss.R
 import kotlin.random.Random
 
-data class ItemModel
-    (
-    val id: Int? = 0,
+data class ItemModel(
+    var orderId: Int? = null,
+    var id: Int = 0,
     val imageResId: Int = R.drawable.av2,
-    val text: String = "Lorem ipsum... $id",
+    val text: String = "Lorem ipsum",
     val isChecked: Boolean = Random.nextBoolean()
 )

@@ -9,16 +9,18 @@ import kotlin.random.Random
 private const val TABLE_NAME = "my_table"
 
 @Entity(tableName = TABLE_NAME)
-data class MyEntity(
+data class MyDbEntity(
 
     @PrimaryKey(autoGenerate = true)
-    val id: Int? = null,
+    val dbOrderId: Int? = null,
+
+    val id: Int,
 
     @ColumnInfo(name = "image")
     val imageResId: Int = R.drawable.av2,
 
     @ColumnInfo(name = "title")
-    val text: String = "Lorem ipsum... $id",
+    val text: String = "Lorem ipsum...",
 
     @ColumnInfo(name = "checked_state")
     val isChecked: Boolean = Random.nextBoolean()

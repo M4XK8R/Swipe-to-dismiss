@@ -4,8 +4,9 @@ import com.maxkor.swipe_to_dismiss.presentation.ItemModel
 
 class MyMapper {
 
-    fun mapModelToEntity(itemModel: ItemModel): MyEntity {
-        return MyEntity(
+    fun mapModelToEntity(itemModel: ItemModel): MyDbEntity {
+        return MyDbEntity(
+            dbOrderId = itemModel.orderId,
             id = itemModel.id,
             imageResId = itemModel.imageResId,
             text = itemModel.text,
@@ -13,16 +14,22 @@ class MyMapper {
         )
     }
 
-    private fun mapEntityToModel(myEntity: MyEntity): ItemModel {
+    fun mapEntityToModel(myDbEntity: MyDbEntity): ItemModel {
         return ItemModel(
-            id = myEntity.id,
-            imageResId = myEntity.imageResId,
-            text = myEntity.text,
-            isChecked = myEntity.isChecked
+            orderId = myDbEntity.dbOrderId,
+            id = myDbEntity.id,
+            imageResId = myDbEntity.imageResId,
+            text = myDbEntity.text,
+            isChecked = myDbEntity.isChecked
         )
     }
 
-    fun mapEntityListToModelList(list: List<MyEntity>): List<ItemModel> {
+    fun mapEntityListToModelList(list: List<MyDbEntity>): List<ItemModel> {
         return list.map { mapEntityToModel(it) }
     }
+
+    fun mapModelListToDbEntityList(list: List<ItemModel>): List<MyDbEntity> {
+        return list.map { mapModelToEntity(it) }
+    }
+
 }
