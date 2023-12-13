@@ -7,12 +7,13 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
-import com.maxkor.swipe_to_dismiss.presentation.VerticalReorderList
+import com.maxkor.swipe_to_dismiss.presentation.reorder.VerticalReorderList
 import com.maxkor.swipe_to_dismiss.ui.theme.SwipetodismissTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContent {
             SwipetodismissTheme {
                 Surface(

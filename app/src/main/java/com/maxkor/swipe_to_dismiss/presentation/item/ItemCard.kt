@@ -1,4 +1,4 @@
-package com.maxkor.swipe_to_dismiss.presentation
+package com.maxkor.swipe_to_dismiss.presentation.item
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
@@ -13,48 +13,35 @@ import androidx.compose.material3.Checkbox
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.TextUnitType
 import androidx.compose.ui.unit.dp
 import com.maxkor.swipe_to_dismiss.R
-import kotlin.random.Random
 
 @Composable
 fun ItemCard(
+    id: Int,
+    text: String,
+    isChecked: Boolean,
+//    checkedState: MutableState<Boolean>,
+    changeCheckedState: () -> Unit,
     modifier: Modifier = Modifier,
-    id: Int = 0,
-    text: String = "Lorem ipsum... $id",
-    isChecked: Boolean = Random.nextBoolean(),
 ) {
-
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(
-                start = 5.dp,
-                end = 3.dp,
-                top = 3.dp,
-            )
+            .padding(start = 5.dp, end = 3.dp, top = 3.dp)
             .then(modifier)
     ) {
         Row(
-            Modifier.padding(
-                start = 16.dp,
-//                end = 16.dp,
-                top = 8.dp,
-                bottom = 8.dp
-            ),
+            modifier = Modifier
+                .padding(start = 16.dp, top = 8.dp, bottom = 8.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             Image(
@@ -74,28 +61,16 @@ fun ItemCard(
                 color = MaterialTheme.colorScheme.onSurface,
                 style = MaterialTheme.typography.bodyLarge,
                 fontFamily = FontFamily.SansSerif,
-//                fontWeight = FontWeight(400)
             )
 
             Box(modifier = Modifier.fillMaxWidth()) {
-                var checkedState by remember {
-                    mutableStateOf(isChecked)
-                }
+//                val isChecked by remember { checkedState }
                 Checkbox(
-                    checked = checkedState,
-                    onCheckedChange = {
-                        checkedState = !checkedState
-                    },
+                    checked = isChecked,
+                    onCheckedChange = { changeCheckedState() },
                     modifier = Modifier.align(Alignment.CenterEnd)
                 )
             }
-
         }
     }
-}
-
-@Preview(showSystemUi = true)
-@Composable
-fun ItemPreview() {
-    ItemCard()
 }

@@ -1,6 +1,7 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id ("kotlin-parcelize")
 }
 
 android {
@@ -50,6 +51,9 @@ android {
 }
 
 dependencies {
+
+    implementation ("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
+
     implementation("org.burnoutcrew.composereorderable:reorderable:0.9.6")
 
     implementation("androidx.core:core-ktx:1.12.0")
