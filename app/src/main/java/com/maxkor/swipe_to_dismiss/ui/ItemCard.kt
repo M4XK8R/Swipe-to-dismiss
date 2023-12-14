@@ -1,4 +1,4 @@
-package com.maxkor.swipe_to_dismiss.presentation.item
+package com.maxkor.swipe_to_dismiss.ui
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
@@ -29,7 +29,6 @@ fun ItemCard(
     id: Int,
     text: String,
     isChecked: Boolean,
-//    checkedState: MutableState<Boolean>,
     changeCheckedState: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -45,7 +44,7 @@ fun ItemCard(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Image(
-                painter = painterResource(id = R.drawable.av2),
+                painter = painterResource(id = R.drawable.av),
                 contentDescription = "test image",
                 modifier = Modifier
                     .size(64.dp)
@@ -56,7 +55,7 @@ fun ItemCard(
             Spacer(modifier = Modifier.size(16.dp))
 
             Text(
-                text = text,
+                text = "$text $id",
                 fontSize = TextUnit(20f, TextUnitType.Sp),
                 color = MaterialTheme.colorScheme.onSurface,
                 style = MaterialTheme.typography.bodyLarge,
@@ -64,7 +63,6 @@ fun ItemCard(
             )
 
             Box(modifier = Modifier.fillMaxWidth()) {
-//                val isChecked by remember { checkedState }
                 Checkbox(
                     checked = isChecked,
                     onCheckedChange = { changeCheckedState() },

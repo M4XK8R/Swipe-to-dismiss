@@ -1,14 +1,15 @@
-package com.maxkor.swipe_to_dismiss.presentation.reorder
+package com.maxkor.swipe_to_dismiss.ui
 
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
-import com.maxkor.swipe_to_dismiss.presentation.item.ItemModel
+import com.maxkor.swipe_to_dismiss.domain.ItemModel
 import org.burnoutcrew.reorderable.ItemPosition
 
 private const val LIST_SIZE = 20
 
-class VerticalReorderViewModel : ViewModel() {
+class MainViewModel : ViewModel() {
+
     private val initialData = List(LIST_SIZE) { ItemModel(id = it) }
 
     private val _itemsState = mutableStateOf(initialData)

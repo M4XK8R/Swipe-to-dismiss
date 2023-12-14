@@ -1,42 +1,31 @@
-package com.maxkor.swipe_to_dismiss.presentation.reorder
+package com.maxkor.swipe_to_dismiss.ui
 
 import androidx.compose.animation.core.animateDpAsState
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.DismissDirection
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.SwipeToDismiss
 import androidx.compose.material3.rememberDismissState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.State
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
-import com.maxkor.swipe_to_dismiss.presentation.item.ItemCard
+import com.maxkor.swipe_to_dismiss.domain.ItemModel
 import org.burnoutcrew.reorderable.ReorderableItem
+import org.burnoutcrew.reorderable.ReorderableLazyListState
 import org.burnoutcrew.reorderable.detectReorderAfterLongPress
-import org.burnoutcrew.reorderable.rememberReorderableLazyListState
 import org.burnoutcrew.reorderable.reorderable
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun VerticalReorderList(
-//    verticalReorderContent: @Composable () -> Unit,
-    viewModel: VerticalReorderViewModel = viewModel()
+    data: State<List<ItemModel>>,
+    reorderableState: ReorderableLazyListState,
+    viewModel: MainViewModel
 ) {
-
-    val data = remember { viewModel.itemsState }
-
-    val reorderableState = rememberReorderableLazyListState(
-        onMove = { from, to ->
-            viewModel.swapElements(from, to)
-        }
-    )
 
     LazyColumn(
         state = reorderableState.listState,
@@ -60,30 +49,25 @@ fun VerticalReorderList(
                         .shadow(elevation.value)
                 ) {
                     val dismissState = rememberDismissState()
-
                     if (dismissState.isDismissed(DismissDirection.StartToEnd) or
                         dismissState.isDismissed(DismissDirection.EndToStart)
                     ) {
                         viewModel.removeItem(item)
                     }
-
-                    SwipeToDismiss(
-                        state = dismissState,
-                        background = {
-                            Box(
-                                modifier = Modifier
-                                    .padding(8.dp)
-                                    .fillMaxSize()
-                            )
-                        },
+                    SwipeToDelete(
+                        dismissState = dismissState,
                         dismissContent = {
                             ItemCard(
                                 id = item.id,
                                 text = item.text,
                                 isChecked = item.isChecked,
-                                changeCheckedState = { viewModel.changeCheckedState(item) })
+                                changeCheckedState = {
+                                    viewModel.changeCheckedState(item)
+                                }
+                            )
                         }
                     )
+
                 }
             }
         }
