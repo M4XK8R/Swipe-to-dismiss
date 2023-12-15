@@ -8,7 +8,6 @@ import org.burnoutcrew.reorderable.rememberReorderableLazyListState
 fun MainScreen(
     viewModel: MainViewModel = viewModel()
 ) {
-
     val data = viewModel.itemsState
 
     val reorderableState = rememberReorderableLazyListState(
