@@ -13,7 +13,6 @@ import com.maxkor.swipe_to_dismiss.ui.theme.SwipetodismissTheme
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         setContent {
             SwipetodismissTheme {
                 Surface(

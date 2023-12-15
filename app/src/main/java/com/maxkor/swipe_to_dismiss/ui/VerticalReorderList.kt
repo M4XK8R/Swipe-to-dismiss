@@ -26,7 +26,6 @@ fun VerticalReorderList(
     reorderableState: ReorderableLazyListState,
     viewModel: MainViewModel
 ) {
-
     LazyColumn(
         state = reorderableState.listState,
         modifier = Modifier

@@ -16,7 +16,6 @@ fun SwipeToDelete(
     dismissState: DismissState,
     dismissContent: @Composable () -> Unit,
 ) {
-
     SwipeToDismiss(
         state = dismissState,
         background = {
