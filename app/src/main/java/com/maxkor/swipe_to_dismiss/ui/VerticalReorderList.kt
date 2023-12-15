@@ -63,11 +63,10 @@ fun VerticalReorderList(
                                 isChecked = item.isChecked,
                                 changeCheckedState = {
                                     viewModel.changeCheckedState(item)
-                                }
+                                },
                             )
                         }
                     )
-
                 }
             }
         }
