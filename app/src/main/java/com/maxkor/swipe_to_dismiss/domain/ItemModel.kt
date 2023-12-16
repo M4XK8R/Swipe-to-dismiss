@@ -5,7 +5,7 @@ import kotlin.random.Random
 
 data class ItemModel(
     val id: Int = 0,
-    val imageResId: Int = R.drawable.av,
+    val imageResId: Int = R.drawable.default_avatar,
     val text: String = "Lorem ipsum...",
     var isChecked: Boolean = Random.nextBoolean()
 )
